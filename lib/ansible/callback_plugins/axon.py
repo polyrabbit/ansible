@@ -10,6 +10,7 @@ import struct
 import socket
 import time
 
+
     
 class AxonClient(object):
     def __init__(self, addr, timeout=10):
@@ -35,9 +36,12 @@ class AxonClient(object):
 
     def serialize(self, msg, meta=2):
         # if not isinstance(msg, basestring):
-        msg = json.dumps(msg)
+        if meta:
+            msg = json.dumps(msg)
+        if len(msg)>(1<<24):
+            raise ValueError('the payload is too large')
         return self.head_patt.pack(len(msg)|meta<<24)+msg
 
 if __name__=='__main__':
     client = AxonClient(('127.0.0.1', 3055))
-    client.push(1, 'b')
+    client.push(1.9, {'lucy':'good'})
