@@ -1,28 +1,14 @@
-# (C) 2012-2013, Michael DeHaan, <michael.dehaan@gmail.com>
+#!/usr/bin/env python
+# coding:utf-8
 
-# This file is part of Ansible
-#
-# Ansible is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# Ansible is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with Ansible.  If not, see <http://www.gnu.org/licenses/>.
-
+import os
 try:
     import json
 except ImportError:
     import simplejson as json
-import os
 import xmlrpclib
 
-proxy = xmlrpclib.ServerProxy('http://localhost:3055', verbose=True, allow_none=True)
+proxy = xmlrpclib.ServerProxy('http://localhost:8000', verbose=True, allow_none=True)
 
 def record(info_dict):
     info_dict['ANSIBLE_DEVOPS_SPACE'] = os.environ.get('ANSIBLE_DEVOPS_SPACE')
